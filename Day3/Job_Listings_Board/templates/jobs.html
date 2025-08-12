@@ -1,0 +1,32 @@
+{% extends "base.html" %} {% block title %}Jobs{% endblock %} {% block content
+%}
+
+<section><h1>Open Positions</h1></section>
+
+{% if jobs and jobs|length > 0%}
+  <div class="jobs-grid">
+    {% for job in jobs %}
+      <article class="job-card {% if job['remote'] %}remote{% endif %}">
+        <div class="job-header">
+          <img class="logo" src="{{ url_for('static', filename=job['logo']) }}" alt="{{ job['company'] }} logo" loading="lazy">
+          <div>
+            <h2 class="job-title">{{ job['title'] }}</h2>
+            <p class="company">{{ job['company'] }}</p>
+          </div>
+          {% if job['remote'] %}
+            <span class="badge badge-remote">Remote</span>
+          {% endif %}
+        </div>
+        <div class="job-meta">
+          <span class="pill">{{ job['type'] }}</span>
+          <span class="pill">{{ job['location'] }}</span>
+        </div>
+        <p class="job-desc">Join {{ job['company'] }} as a {{ job['title'] }}. Apply now!</p>
+        <button class="apply-btn" type="button">Apply</button>
+      </article>
+    {% endfor %}
+  </div>
+{% else %}
+  <p class="empty">No jobs available</p>
+{% endif %}
+</section> {% endblock %}

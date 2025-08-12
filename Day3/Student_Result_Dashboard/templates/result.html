@@ -1,0 +1,65 @@
+{% extends "base.html" %} {% block title %}Result{% endblock %} {% block content
+%}
+
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h1 class="h4 mb-0">Student: {{ student.name }}</h1>
+          {% if student.grade == 'A' %}
+          <span class="badge grade-badge bg-success"
+            >Grade: {{ student.grade }}</span
+          >
+          {% elif student.grade == 'B' %}
+          <span class="badge grade-badge bg-warning text-dark"
+            >Grade: {{ student.grade }}</span
+          >
+          {% else %}
+          <span class="badge grade-badge bg-danger"
+            >Grade: {{ student.grade }}</span
+          >
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="table-responsive">
+        <table class="table align-middle">
+          <thead class="table-light">
+            <tr>
+              <th scope="col">Subject</th>
+              <th scope="col" class="text-end">Marks</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for subject in subjects %}
+              <tr>
+                <td>{{ subject.name }}</td>
+                <td class="text-end fw-semibold">{{ subject.marks }}</td>
+              </tr>
+            {% else %}
+              <tr>
+                <td colspan="2" class="text-center text-muted">No subjects available</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-3">
+        <p class="mb-0 text-muted">Summary</p>
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item">Total Subjects: {{ subjects|length }}</li>
+          <li class="list-inline-item">Total Marks: {{ subjects | map(attribute='marks') | sum }}</li>
+          <li class="list-inline-item">Average: {{
+            (subjects | map(attribute='marks') | sum) / (subjects|length)
+          | round(2) if subjects|length > 0 else 0 }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}

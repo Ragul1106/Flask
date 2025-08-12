@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="movie-grid">
+    {% for movie in movies %}
+    <div class="movie-card">
+        <img src="{{ url_for('static', filename='images/' ~ movie.poster) }}" alt="{{ movie.title }} poster">
+        
+        <h3>{{ movie.title }}</h3>
+
+        {% if movie.is_new %}
+        <span class="new-release">New Release</span>
+        {% endif %}
+
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

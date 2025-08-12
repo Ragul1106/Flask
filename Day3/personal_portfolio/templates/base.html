@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{{ site_name }} | {% block title %}{% endblock %}</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('about') }}">About</a>
+        <a href="{{ url_for('projects') }}">Projects</a>
+        <a href="{{ url_for('contact') }}">Contact</a>
+      </nav>
+      <div class="hero">
+        <img
+          class="avatar"
+          src="{{ url_for('static', filename='images/profile.jpg') }}"
+          alt="{{ site_name }} profile photo"
+        />
+        <div class="intro">
+          <h1>{{ site_name }}</h1>
+          <ul class="skills">
+            {% for skill in skills %}
+            <li>{{ skill }}</li>
+            {% endfor %}
+          </ul>
+          {% if available_for_hire %}
+          <p class="hire-badge">Available for hire</p>
+          {% endif %}
+        </div>
+      </div>
+    </header>
+    <main class="content">{% block content %}{% endblock %}</main>
+    <footer class="site-footer">
+      <small>&copy; {{ site_name }} {{ current_year | default(2025) }}</small>
+    </footer>
+  </body>
+</html>
